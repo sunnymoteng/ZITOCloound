@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ZITOCloound'
-    s.version          = '3.3.3'
+    s.version          = '4.4.4'
     s.summary          = 'ZITOCloound iOS SDK'
     s.description      = <<-DESC
     融拓支付聚合平台
@@ -16,6 +16,10 @@ Pod::Spec.new do |s|
 
 
     s.subspec 'BaseCore' do |core|
+        core.source_files = 'lib/*.h'
+        core.public_header_files = 'lib/*.h'
+        core.vendored_libraries = 'lib/*.a'
+        core.resource = 'lib/*.bundle'
         core.frameworks = 'CFNetwork', 'SystemConfiguration', 'Security'
         core.ios.library = 'c++', 'stdc++', 'z'
         core.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
