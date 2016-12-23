@@ -1,0 +1,21 @@
+//
+//  ZITOPay.pch
+//  ZITOPay
+//
+//  Created by 李冬冬 on 16/10/15.
+//  Copyright © 2016年 ldd. All rights reserved.
+//
+
+#ifndef ZITOPay_pch
+#define ZITOPay_pch
+
+#define ZITOID @"RZF281316"
+//#define APPID  @"RZF281950"
+#define APPID  @"RZF281798"
+#define APPKEY @"63210e7ba2a9b8fbea1a5f5cbb1a5e66"
+
+#define SCREENSIZE [[UIScreen mainScreen] bounds].size
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* ZITOPay_pch */

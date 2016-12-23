@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>订单测试</title>
+            <meta name="viewport"
+                content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+                <meta name="apple-mobile-web-app-capable" content="yes">
+                    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+                        <link rel="stylesheet" href="zitopay.css">
+                            
+                            </head>
+    <body>
+        <br /><br /><br /><br />
+        <div id="zitopay-testData">
+            <h3>请填写测试数据</h3>
+        </div>
+        <form>
+            订单标题<input type="text" name="ordertitle" value="ZITOPay" id="ordertitle" /><br /><br />
+            订单金额<input type="text" name="totalPrice" value="0.01" id="totalPrice"/><br /><br />
+            商品名称<input type="text" name="goodsname" value="鲜花" id="goodsname"/><br /><br />
+            商品详情<input type="text" name="goodsdetail" value="99包月4次配送" id="goodsdetail"/><br /><br />
+            回调地址<input type="text" name="bgRetUrl" value="http://www.baidu.com" id="bgRetUrl"/><br /><br />
+            订单流水<input type="text" name="orderidinf" id="orderidinf"/><br /><br />
+            货币选择<input type="text" name="currency" value="cny" id="currency"/><br /><br />
+            甬易标识<input type="text" name="userIdIdentity" value="00" id="userIdIdentity"/><br /><br />
+        </form>
+        
+        <div id="zitopay-top">
+            <h3>请选择支付通道</h3>
+        </div>
+        <div id="zitopay-medium">
+            <!--银联-->
+            <div class="zitopay-paychannel">
+                <label>银联</label>
+                <input type="radio" name="paychannel"  value="unionPay"/>
+            </div>
+            <!--微信-->
+            <div class="zitopay-paychannel">
+                <label>微信</label>
+                <input type="radio" name="paychannel"  value="weixinPay" />
+            </div>
+            <!--支付宝-->
+            <div class="zitopay-paychannel">
+                <label>支付宝</label>
+                <input type="radio" name="paychannel"  value="aliPay" />
+            </div>
+            <!--丰付银联支付-->
+            <div class="zitopay-paychannel">
+                <label>丰付快捷支付</label>
+                <input type="radio" name="paychannel"  value="sumaQuickPay" />
+            </div>
+            <!--丰付快捷支付-->
+            <!--            <div class="zitopay-paychannel">-->
+            <!--                <label>甬易银联支付</label>-->
+            <!--                <input type="radio" name="paychannel"  value="yongyiUnionPay" />-->
+            <!--            </div>-->
+            <!--畅捷通支付-->
+            <div class="zitopay-paychannel">
+                <label>畅捷通快捷支付</label>
+                <input type="radio" name="paychannel"  value="changQuickPay" />
+            </div>
+        </div>
+        <div id="zitopay-bottom">
+            <!--支付按钮点击事件-->
+            <button type="button" onclick="toPay()">支付</button>
+        </div>
+    </body>
+    <script type="text/javascript" src="zitowebviewPay.js"></script>
+    <script type="text/javascript">
+        /*  zt_channel:选中单选框的值value
+         *  paychannelNum:将通道转为枚举对应的数字
+         *  paydata: 支付参数
+         *  billNo:订单号
+         */
+    var zt_channel;
+    var paychannelNum ;
+    var paydata;
+    var orderidinf;
+    
+    function toPay(){
+        ztclick();
+        if(!zt_channel){
+            alert('请选择支付通道');
+        }
+        orderidinf = getBillNo();
+        paychannelNum = getChannel(zt_channel);
+        paydata = getJsonData();
+        zitopay(paydata);
+    }
+    
+    /**
+     * 构建支付参数
+     * channel:支付渠道
+     * bgRetUrl:丰付快捷M＋、甬易银联快捷、畅捷通快捷必填,支付结果会同步返回给用户
+     * currency:支持币种
+     * scheme:支付宝要求必填
+     * ordertitle: 订单标题，32个字节，最长支持16个汉字；必填
+     * totalPrice: 支付金额，以分为单位，大于0的整数，必填
+     * goodsname:商品信息
+     * goodsdetail:商品详情
+     * orderidinf: 订单号，8~32位数字/或字母组合,确保在商户系统中唯一，必填
+     * optional: 扩展参数,可以传入任意数量的key/value对来补充对业务逻辑的需求;此参数会在webhook回调中返回; 选填
+     * cardType: 0 表示不区分卡类型；1 表示只支持借记卡；2 表示支持信用卡；默认为0
+     * bill_timeout: 订单失效时间,必须为非零正整数，单位为秒，必须大于360。选填
+     * idCard:丰付快捷M＋必填,身份证号
+     * userIdIdentity:
+     */
+    function getJsonData(){
+        //订单标题
+        var ordertitle = document.getElementById("ordertitle").value;
+        //订单金额
+        var totalPrice = document.getElementById("totalPrice").value;
+        //商品名称
+        var goodsname = document.getElementById("goodsname").value;
+        //商品详情
+        var goodsdetail = document.getElementById("goodsdetail").value;
+        //回调地址
+        var bgRetUrl = document.getElementById("bgRetUrl").value;
+        //订单流水
+        <!--        var orderidinf = document.getElementById("orderidinf").value;-->
+        //货币选择
+        var currency = document.getElementById("currency").value;
+        //丰付标识
+        var userIdIdentity = document.getElementById("userIdIdentity").value;
+        var json = {
+            "channel":paychannelNum,
+            "ordertitle": ordertitle,
+            "totalPrice": totalPrice,
+            "optional": {'uerId':'zitopay','phone':'11111118'},
+            "orderidinf":orderidinf,
+            "bgRetUrl":bgRetUrl,
+            "currency":currency,
+            "scheme":"webviewpaySchemes",
+            "goodsname":goodsname,
+            "goodsdetail":goodsdetail,
+            "cardType":0,
+            "currency":currency,
+            "userIdIdentity":userIdIdentity,
+            "bill_timeout": 360,
+            "idCard":"340228199610117887"
+        };
+        return json;
+    }
+    
+    function getChannel(channelStr){
+        switch (channelStr){
+            case "unionPay":
+            {
+                return 30;
+            }
+            break;
+            case "weixinPay":
+            {
+                return 8;
+            }
+            break;
+            case "aliPay":
+            {
+                return 7;
+            }
+            break;
+            case "sumaQuickPay":
+            {
+                return 9;
+            }
+            break;
+            <!--            case "yongyiUnionPay":-->
+            <!--            {-->
+                <!--                return 17;-->
+                <!--            }-->
+            break;
+            case "changQuickPay":
+            {
+                return 11;
+            }
+            break;
+            default:
+            break;
+        }
+    }
+    
+    /*根据时间生成17位订单*/
+    function getBillNo() {
+        var d = new Date();
+        var vYear = d.getFullYear();
+        var vMon = d.getMonth() + 1;
+        var vDay = d.getDate();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var se = d.getSeconds();
+        var ms = d.getMilliseconds();
+        billno = "" + vYear + (vMon < 10 ? "0" + vMon : vMon) + (vDay < 10 ? "0" + vDay : vDay) + (h < 10 ? "0" + h : h) + (m < 10 ? "0" + m : m) + (se < 10 ? "0" + se : se) + ms;
+        return billno;
+    }
+    
+    
+    //通过标签获取单选框value  getElementsByTagName
+    function ztclick(){
+        var obj = document.getElementsByTagName("input");
+        for(var i=0; i<obj.length; i ++){
+            if(obj[i].checked){
+                zt_channel = obj[i].value;
+            }
+        }
+    }
+    
+    /*回调支付结果*/
+    function payResult(strMsg){
+        setTimeout(function(){
+                   alert(strMsg, function() {
+                         });
+                   },1);
+    }
+    </script>
+</html>

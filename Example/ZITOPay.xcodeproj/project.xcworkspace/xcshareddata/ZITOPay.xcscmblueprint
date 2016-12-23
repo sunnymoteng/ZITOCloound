@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1CD91FBC2C71082C6024C1779E22C83BF8F4F499",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1CD91FBC2C71082C6024C1779E22C83BF8F4F499" : 9223372036854775807,
+    "E12F2B09836B8A330F2B604A0B9C5E43F97E1926" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "90C0D08E-66F4-4510-9561-FAEE587EC5D8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1CD91FBC2C71082C6024C1779E22C83BF8F4F499" : "ZITOPayDemo_webviewiOS\/",
+    "E12F2B09836B8A330F2B604A0B9C5E43F97E1926" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ZITOPay",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ZITOPay.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sunnymoteng\/zitopay_webviewiOSDemo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1CD91FBC2C71082C6024C1779E22C83BF8F4F499"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sunnymoteng\/zitoppay_webviewiOSDemo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E12F2B09836B8A330F2B604A0B9C5E43F97E1926"
+    }
+  ]
+}

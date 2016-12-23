@@ -1,42 +1,31 @@
-#
-# Be sure to run `pod lib lint ZITOCloound.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
-  s.name             = 'ZITOCloound'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of ZITOCloound.'
+s.name             = 'SNPaySDKLib'
+s.version          = '1.1.1'
+s.summary          = 'ZITOPaySDK iOS SDK'
+s.description      = <<-DESC
+融拓支付聚合平台
+轻松接入,开启支付新里程
+DESC
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+s.homepage         = 'http://www.rtkj.com.cn'
+s.license          = { :type => 'MIT', :file => 'LICENSE' }
+s.author           = { 'sunnymoteng' => '369074420@qq.com' }
+s.source           = { :git => 'https://github.com/sunnymoteng/SNPaySDKLib.git', :tag => s.version.to_s }
+s.ios.deployment_target = '8.0'
+s.default_subspec = 'BaseCore', 'Alipay'
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
 
-  s.homepage         = 'https://github.com/<GITHUB_USERNAME>/ZITOCloound'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'sunnymoteng' => '369074420@qq.com' }
-  s.source           = { :git => 'https://github.com/<GITHUB_USERNAME>/ZITOCloound.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+s.subspec 'BaseCore' do |BaseCore|
+BaseCore.frameworks = 'CFNetwork', 'SystemConfiguration', 'Security'
+BaseCore.ios.library = 'c++', 'stdc++', 'z'
+BaseCore.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
 
-  s.ios.deployment_target = '8.0'
+s.subspec 'Alipay' do |ss|
+ss.vendored_libraries = 'lib/Channels/Alipay/*.a'
+ss.ios.vendored_frameworks = 'lib/Channels/Alipay/AlipaySDK.framework'
+ss.resource = 'lib/Channels/Alipay/AlipaySDK.bundle'
+ss.frameworks = 'CoreMotion', 'CoreTelephony'
+ss.dependency 'SNPaySDKLib/BaseCore'
+end
 
-  s.source_files = 'ZITOCloound/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'ZITOCloound' => ['ZITOCloound/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
