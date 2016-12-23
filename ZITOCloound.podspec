@@ -15,10 +15,10 @@ s.ios.deployment_target = '8.0'
 s.default_subspec = 'BaseCore', 'Alipay'
 
 
-s.subspec 'BaseCore' do |BaseCore|
-BaseCore.frameworks = 'CFNetwork', 'SystemConfiguration', 'Security'
-BaseCore.ios.library = 'c++', 'stdc++', 'z'
-BaseCore.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
+s.subspec 'BaseCore' do |core|
+core.frameworks = 'CFNetwork', 'SystemConfiguration', 'Security'
+core.ios.library = 'c++', 'stdc++', 'z'
+core.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
 
 s.subspec 'Alipay' do |ss|
 ss.vendored_libraries = 'lib/Channels/Alipay/*.a'
