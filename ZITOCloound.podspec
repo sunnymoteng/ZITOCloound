@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-s.name             = 'SNPaySDKLib'
-s.version          = '2.2.2'
-s.summary          = 'ZITOPaySDK iOS SDK'
+s.name             = 'ZITOCloound'
+s.version          = '3.3.3'
+s.summary          = 'ZITOCloound iOS SDK'
 s.description      = <<-DESC
 融拓支付聚合平台
 轻松接入,开启支付新里程
@@ -25,7 +25,7 @@ ss.vendored_libraries = 'lib/Channels/Alipay/*.a'
 ss.ios.vendored_frameworks = 'lib/Channels/Alipay/AlipaySDK.framework'
 ss.resource = 'lib/Channels/Alipay/AlipaySDK.bundle'
 ss.frameworks = 'CoreMotion', 'CoreTelephony'
-ss.dependency 'SNPaySDKLib/BaseCore'
+ss.dependency 'ZITOCloound/BaseCore'
 end
 
 end
